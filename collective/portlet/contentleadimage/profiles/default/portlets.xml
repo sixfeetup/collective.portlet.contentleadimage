@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<portlets>
+
+ <!-- Portlet type registrations -->
+
+ <portlet
+   addview="collective.portlet.contentleadimage.ContentLeadImageCollectionPortlet"
+   title="ContentLeadImage Collection Portlet"
+   description="Collection portlet that shows contenteleadimages"
+   />
+
+</portlets>
