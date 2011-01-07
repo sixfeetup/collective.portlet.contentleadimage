@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0'
+version = 'trunk'
 
 setup(name='collective.portlet.contentleadimage',
       version=version,
@@ -13,10 +13,12 @@ setup(name='collective.portlet.contentleadimage',
       classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
+        "Development Status :: 4 - Beta",
+        "License :: OSI Approved :: GNU General Public License (GPL)",
         ],
       keywords='',
-      author='',
-      author_email='',
+      author='Ales Zabala Alava (Shagi)',
+      author_email='shagi@gisa-elkartea.org',
       url='http://svn.plone.org/svn/collective/',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
