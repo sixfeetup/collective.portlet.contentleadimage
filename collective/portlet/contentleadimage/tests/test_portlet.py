@@ -1,3 +1,4 @@
+import os
 from zope.component import getUtility, getMultiAdapter
 
 from plone.portlets.interfaces import IPortletType
@@ -80,11 +81,6 @@ class TestRenderer(TestCase):
         crit = self.collection.addCriterion('portal_type', 'ATSimpleStringCriterion')
         crit.setValue('Folder')
 
-        # add a folder
-        self.folder.invokeFactory('Folder', 'folder_1')
-        #Add contentleadimage to folder
-        getattr(self.folder, 'folder_1').reindexObject()
-
         #Ensure folders can have contentleadimages
         self.loginAsPortalOwner()
         prefs = ILeadImagePrefsForm(self.portal)
@@ -95,10 +91,15 @@ class TestRenderer(TestCase):
         self.logout()
         self.login()
 
-        test_image = os.path.join(tests_dir, 'test_41x41.jpg')
+        # add a folder
+        self.folder.invokeFactory('Folder', 'folder_1')
+        #Add contentleadimage to folder
+        folder1 = getattr(self.folder, 'folder_1')
+        test_image = os.path.join(os.path.dirname(__file__), 'test_41x41.jpg')
         raw_image = open(test_image, 'rb').read()
-        field = doc.getField(IMAGE_FIELD_NAME)
-        field.set(doc, raw_image)
+        field = folder1.getField(IMAGE_FIELD_NAME)
+        field.set(folder1, raw_image)
+        folder1.reindexObject()
 
     def _createType(self, context, portal_type, id, **kwargs):
         """Helper method to create a new type
@@ -127,7 +128,7 @@ class TestRenderer(TestCase):
     def test_render(self):
         r = self.renderer(context=self.portal,
                           assignment=contentleadimagecollectionportlet.Assignment(header=u"title",
-                                                                                  target_collection='/Members/test_user_1/collection'))
+                                                                                  target_collection='/Members/test_user_1_/collection'))
         r = r.__of__(self.folder)
         r.update()
         output = r.render()
