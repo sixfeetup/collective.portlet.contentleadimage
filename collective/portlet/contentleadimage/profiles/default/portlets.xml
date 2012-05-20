@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<portlets i18n:domain="collective.portlet.contentleadimage">
-
- <!-- Portlet type registrations -->
+<portlets
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n:domain="collective.portlet.contentleadimage">
 
  <portlet
    addview="collective.portlet.contentleadimage.ContentLeadImageCollectionPortlet"
