@@ -1,3 +1,0 @@
-setuptools
-plone.portlet.collection
-collective.contentleadimage
