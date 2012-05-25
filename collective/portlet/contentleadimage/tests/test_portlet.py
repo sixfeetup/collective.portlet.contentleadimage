@@ -1,5 +1,6 @@
 import os
 from zope.component import getUtility, getMultiAdapter
+from DateTime import DateTime
 
 from plone.portlets.interfaces import IPortletType
 from plone.portlets.interfaces import IPortletManager
@@ -133,6 +134,41 @@ class TestRenderer(TestCase):
         r.update()
         output = r.render()
         self.failUnless('<img' in output)
+
+    def test_start_dates(self):
+        self.folder.invokeFactory('Event', 'event_1')
+        event1 = getattr(self.folder, 'event_1')
+        start_date = DateTime(2400, 0)
+        event1.startDate = start_date
+        event1.reindexObject()
+
+        catalog = getToolByName(self.folder, 'portal_catalog')
+
+        event_brain = catalog(id='event_1')[0]
+        folder_brain = catalog(id='folder_1')[0]
+
+        r = self.renderer(context=self.portal,
+                          assignment=contentleadimagecollectionportlet.Assignment(header=u"title",
+                                                                                  start_dates=True,
+                                                                                  target_collection='/Members/test_user_1_/collection'))
+        r = r.__of__(self.folder)
+        r.update()
+        shown_date = r.object_date(event_brain)
+        self.assertEqual(start_date, shown_date)
+        shown_date = r.object_date(folder_brain)
+        self.assertEqual(folder_brain.Date, shown_date)
+
+        r = self.renderer(context=self.portal,
+                          assignment=contentleadimagecollectionportlet.Assignment(header=u"title",
+                                                                                  start_dates=False,
+                                                                                  target_collection='/Members/test_user_1_/collection'))
+        r = r.__of__(self.folder)
+        r.update()
+        shown_date = r.object_date(event_brain)
+        self.assertEqual(event_brain.Date, shown_date)
+        shown_date = r.object_date(folder_brain)
+        self.assertEqual(folder_brain.Date, shown_date)
+
 
 
 def test_suite():

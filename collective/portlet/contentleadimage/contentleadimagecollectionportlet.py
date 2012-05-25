@@ -1,6 +1,7 @@
 from zope.interface import implements
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
+from zope import schema
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getUtility
@@ -22,6 +23,15 @@ class IContentLeadImageCollectionPortlet(collection.ICollectionPortlet):
     displaying the contentleadimages.
     """
 
+    start_dates = schema.Bool(
+        title=_(u"Show start dates"),
+        description=_(u'For event like content start date will be shown '\
+                       'instead publication date. Only applicable if '\
+                       '"Show dates" is active.'),
+        default=False,
+        required=False)
+
+
 class Assignment(collection.Assignment):
     """Portlet assignment.
 
@@ -30,6 +40,15 @@ class Assignment(collection.Assignment):
     """
 
     implements(IContentLeadImageCollectionPortlet)
+
+    start_dates = False
+
+    def __init__(self, header=u"", target_collection=None, limit=None,
+                 random=False, show_more=True, show_dates=False,
+                 start_dates=False):
+        super(Assignment, self).__init__(header, target_collection, limit,
+                                         random, show_more, show_dates)
+        self.start_dates = start_dates
 
 
 class Renderer(collection.Renderer):
@@ -61,6 +80,17 @@ class Renderer(collection.Renderer):
                 scale = prefs.desc_scale_name
                 return field.tag(context, scale=scale, css_class=css_class, title=title)
         return ''
+
+    def object_date(self, brain):
+        """ Return the appropiate date to show """
+
+        date = None
+        if self.data.start_dates:
+            date =  brain.start or brain.Date
+        else:
+            date = brain.Date
+        return date
+
 
 
 class AddForm(base.AddForm):
