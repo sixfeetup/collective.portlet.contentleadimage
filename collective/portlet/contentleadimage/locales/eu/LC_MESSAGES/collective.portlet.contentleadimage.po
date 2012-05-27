@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2011-01-08 10:59+0000\n"
-"PO-Revision-Date: 2011-01-08 11:08+0000\n"
+"POT-Creation-Date: 2012-05-27 15:11+0000\n"
+"PO-Revision-Date: 2012-05-27 17:18+0200\n"
 "Last-Translator: Ales Zabala Alava (Shagi) <shagi@gisa-elkartea.org>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "Language: eu\n"
@@ -17,21 +17,9 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.portlet.contentleadimage\n"
 
-#: contentleadimagecollectionportlet.py:76
+#: contentleadimagecollectionportlet.py:106
 msgid "Add ContentLeadImage Collection Portlet"
 msgstr "Edukiaren goiburuko irudien bilduma portleta gehitu"
-
-#: contentleadimagecollectionportlet.py:91
-msgid "Edit ContentLeadImage Collection Portlet"
-msgstr "Edukiaren goiburuko irudien bilduma portleta aldatu"
-
-#: contentleadimagecollectionportlet.py:77
-msgid ""
-"This portlet display a listing of items's contentleadimages from a "
-"Collection."
-msgstr ""
-"Portlet honek Bilduma bateko elementuen goiburuko irudien zerrenda erakusten "
-"du"
 
 #: ZCML
 msgid "Collection portlet that shows content lead images"
@@ -40,3 +28,27 @@ msgstr "Edukiaren goiburuko irudiak erakusten dituen bilduma portleta"
 #: ZCML
 msgid "ContentLeadImage Collection Portlet"
 msgstr "Edukiaren goiburuko irudien Bilduma Portleta"
+
+#: contentleadimagecollectionportlet.py:121
+msgid "Edit ContentLeadImage Collection Portlet"
+msgstr "Edukiaren goiburuko irudien bilduma portleta aldatu"
+
+#: contentleadimagecollectionportlet.py:28
+msgid ""
+"For event like content start date will be shown instead publication date. "
+"Only applicable if \"Show dates\" is active."
+msgstr ""
+"Hitzordu motako edukientzat hasiera data erakutsi da argitalpen dataren "
+"ordez. \"Datak erakutsi\" gaituta dagoenerako bakarrik."
+
+#: contentleadimagecollectionportlet.py:27
+msgid "Show start dates"
+msgstr "Erakutsi hasiera datak"
+
+#: contentleadimagecollectionportlet.py:107
+msgid ""
+"This portlet display a listing of items's contentleadimages from a "
+"Collection."
+msgstr ""
+"Portlet honek Bilduma bateko elementuen goiburuko irudien zerrenda erakusten "
+"du"
