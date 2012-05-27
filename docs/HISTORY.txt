@@ -1,7 +1,11 @@
 Changelog
 =========
 
-0.3 - Unreleased
+0.4 - Unreleased
+-------------------
+
+
+0.3 - 2012-05-27
 -------------------
 
 - New option: show start dates instead of publication dates
