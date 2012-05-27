@@ -3,6 +3,11 @@ import os
 
 version = 'trunk'
 
+if version == 'trunk':
+    download_url = 'https://svn.plone.org/svn/collective/collective.portlet.contentleadimage/tags/%s' % version,
+else:
+    download_url = 'https://svn.plone.org/svn/collective/collective.portlet.contentleadimage/trunk/'
+
 setup(name='collective.portlet.contentleadimage',
       version=version,
       description="Collection portlet that shows contenteleadimages",
@@ -19,7 +24,8 @@ setup(name='collective.portlet.contentleadimage',
       keywords='',
       author='Ales Zabala Alava (Shagi)',
       author_email='shagi@gisa-elkartea.org',
-      url='http://svn.plone.org/svn/collective/',
+      url='http://lagunak.gisa-elkartea.org/projects/plone-leadimage/',
+      download_url=download_url,
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective', 'collective.portlet'],
