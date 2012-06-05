@@ -75,11 +75,14 @@ class Renderer(collection.Renderer):
             title = ''
         if field is not None:
             if field.get_size(context) != 0:
-                portal = getUtility(IPloneSiteRoot)
-                prefs =  ILeadImagePrefsForm(portal)
-                scale = prefs.desc_scale_name
+                scale = self.scale()
                 return field.tag(context, scale=scale, css_class=css_class, title=title)
         return ''
+
+    def scale(self):
+        portal = getUtility(IPloneSiteRoot)
+        prefs =  ILeadImagePrefsForm(portal)
+        return prefs.desc_scale_name
 
     def object_date(self, brain):
         """ Return the appropiate date to show """
@@ -90,7 +93,6 @@ class Renderer(collection.Renderer):
         else:
             date = brain.Date
         return date
-
 
 
 class AddForm(base.AddForm):

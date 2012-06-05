@@ -24,6 +24,7 @@
                     item_icon python:getIcon(obj);
                     item_has_leadimage obj/hasContentLeadImage;
                     item_object obj/getObject;
+                    item_has_image exists:item_object/image;
                     "
 
         tal:attributes="class python:oddrow and 'portletItem even' or 'portletItem odd'">
@@ -34,6 +35,9 @@
             <img src="" alt=""
                  tal:condition="exists:item_has_leadimage"
                  tal:replace="structure python:view.tag(item_object, css_class='portletItemDetails')" />
+            <img src="" alt=""
+                 tal:condition="python: not item_has_leadimage and item_has_image"
+                 tal:replace="structure python:item_object.tag(scale=view.scale(), css_class='portletItemDetails')" />
             <img tal:replace="structure item_icon/html_tag" />
             <span tal:replace="obj/pretty_title_or_id">
              Title

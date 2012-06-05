@@ -93,9 +93,8 @@ class TestRenderer(TestCase):
         self.login()
 
         # add a folder
-        self.folder.invokeFactory('Folder', 'folder_1')
+        folder1 = self._createType(self.folder, 'Folder', 'folder_1')
         #Add contentleadimage to folder
-        folder1 = getattr(self.folder, 'folder_1')
         test_image = os.path.join(os.path.dirname(__file__), 'test_41x41.jpg')
         raw_image = open(test_image, 'rb').read()
         field = folder1.getField(IMAGE_FIELD_NAME)
@@ -136,8 +135,7 @@ class TestRenderer(TestCase):
         self.failUnless('<img' in output)
 
     def test_start_dates(self):
-        self.folder.invokeFactory('Event', 'event_1')
-        event1 = getattr(self.folder, 'event_1')
+        event1 = self._createType(self.folder, 'Event', 'event_1')
         start_date = DateTime(2400, 0)
         event1.startDate = start_date
         event1.reindexObject()
@@ -169,6 +167,25 @@ class TestRenderer(TestCase):
         shown_date = r.object_date(folder_brain)
         self.assertEqual(folder_brain.Date, shown_date)
 
+    def test_images_on_news(self):
+        #Create a News Item with a image
+        new1 = self._createType(self.folder, 'News Item', 'new_1')
+        test_image = os.path.join(os.path.dirname(__file__), 'test_41x41.jpg')
+        raw_image = open(test_image, 'rb').read()
+        field = new1.getField('image')
+        field.set(new1, raw_image)
+        new1.reindexObject()
+
+        #Change the collection to search only new items
+        crit = self.collection.listCriteria()[0]
+        crit.setValue('News Item')
+        r = self.renderer(context=self.portal,
+                          assignment=contentleadimagecollectionportlet.Assignment(header=u"title",
+                                                                                  target_collection='/Members/test_user_1_/collection'))
+        r = r.__of__(self.folder)
+        r.update()
+        output = r.render()
+        self.failUnless('<img' in output)
 
 
 def test_suite():

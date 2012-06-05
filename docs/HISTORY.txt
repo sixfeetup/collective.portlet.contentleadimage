@@ -4,6 +4,9 @@ Changelog
 0.4 - Unreleased
 -------------------
 
+- Now object's 'image' field is displayed (if exist) if it has no lead
+  image
+
 
 0.3 - 2012-05-27
 -------------------
@@ -11,6 +14,7 @@ Changelog
 - New option: show start dates instead of publication dates
 - Fix i18n of portlets.xml
 - Update translations
+
 
 0.2 - 2012-05-20
 -------------------
