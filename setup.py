@@ -3,7 +3,7 @@ import os
 
 version = 'trunk'
 
-if version == 'trunk':
+if version != 'trunk':
     download_url = 'https://svn.plone.org/svn/collective/collective.portlet.contentleadimage/tags/%s' % version,
 else:
     download_url = 'https://svn.plone.org/svn/collective/collective.portlet.contentleadimage/trunk/'
