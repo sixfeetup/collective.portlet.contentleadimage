@@ -187,6 +187,21 @@ class TestRenderer(TestCase):
         output = r.render()
         self.failUnless('<img' in output)
 
+    def test_news_without_image(self):
+        #Create a News Item without a image
+        new1 = self._createType(self.folder, 'News Item', 'new_1')
+
+        #Change the collection to search only new items
+        crit = self.collection.listCriteria()[0]
+        crit.setValue('News Item')
+        r = self.renderer(context=self.portal,
+                          assignment=contentleadimagecollectionportlet.Assignment(header=u"title",
+                                                                                  target_collection='/Members/test_user_1_/collection'))
+        r = r.__of__(self.folder)
+        r.update()
+        output = r.render()
+        self.failIf('<img' in output)
+
 
 def test_suite():
     from unittest import TestSuite, makeSuite
