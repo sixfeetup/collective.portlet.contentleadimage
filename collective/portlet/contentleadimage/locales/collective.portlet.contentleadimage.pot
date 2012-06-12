@@ -3,8 +3,8 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.3\n"
-"POT-Creation-Date: 2012-05-27 15:11+0000\n"
+"Project-Id-Version: 0.5\n"
+"POT-Creation-Date: 2012-06-12 04:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.portlet.contentleadimage\n"
 
-#: ./contentleadimagecollectionportlet.py:106
+#: ./contentleadimagecollectionportlet.py:107
 msgid "Add ContentLeadImage Collection Portlet"
 msgstr ""
 
@@ -29,19 +29,27 @@ msgstr ""
 msgid "ContentLeadImage Collection Portlet"
 msgstr ""
 
-#: ./contentleadimagecollectionportlet.py:121
+#: ./contentleadimagecollectionportlet.py:122
 msgid "Edit ContentLeadImage Collection Portlet"
 msgstr ""
 
-#: ./contentleadimagecollectionportlet.py:28
+#: ./contentleadimagecollectionportlet.py:25
 msgid "For event like content start date will be shown instead publication date. Only applicable if \"Show dates\" is active."
 msgstr ""
 
-#: ./contentleadimagecollectionportlet.py:27
+#: ./contentleadimagecollectionportlet.py:32
+msgid "Image scale"
+msgstr ""
+
+#: ./contentleadimagecollectionportlet.py:24
 msgid "Show start dates"
 msgstr ""
 
-#: ./contentleadimagecollectionportlet.py:107
+#: ./contentleadimagecollectionportlet.py:33
+msgid "The size of the images in the portlet."
+msgstr ""
+
+#: ./contentleadimagecollectionportlet.py:108
 msgid "This portlet display a listing of items's contentleadimages from a Collection."
 msgstr ""
 

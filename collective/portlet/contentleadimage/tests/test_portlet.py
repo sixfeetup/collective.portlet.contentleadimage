@@ -202,6 +202,25 @@ class TestRenderer(TestCase):
         output = r.render()
         self.failIf('<img' in output)
 
+    def test_image_scales(self):
+        #default scale size is thumb
+        r = self.renderer(context=self.portal,
+                          assignment=contentleadimagecollectionportlet.Assignment(header=u"title",
+                                                                                  target_collection='/Members/test_user_1_/collection'))
+        r = r.__of__(self.folder)
+        r.update()
+        output = r.render()
+        self.failUnless('_thumb' in output)
+
+        r = self.renderer(context=self.portal,
+                          assignment=contentleadimagecollectionportlet.Assignment(header=u"title",
+                                                                                  scale='tile',
+                                                                                  target_collection='/Members/test_user_1_/collection'))
+        r = r.__of__(self.folder)
+        r.update()
+        output = r.render()
+        self.failUnless('_tile' in output)
+
 
 def test_suite():
     from unittest import TestSuite, makeSuite

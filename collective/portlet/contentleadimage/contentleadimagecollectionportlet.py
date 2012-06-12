@@ -4,8 +4,6 @@ from plone.app.portlets.portlets import base
 from zope import schema
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.component import getUtility
-from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Acquisition import aq_inner
 
 from collective.portlet.contentleadimage import ContentLeadImageCollectionPortletMessageFactory as _
@@ -15,7 +13,6 @@ from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 
 from collective.contentleadimage.config import IMAGE_FIELD_NAME
 from collective.contentleadimage.config import IMAGE_CAPTION_FIELD_NAME
-from collective.contentleadimage.leadimageprefs import ILeadImagePrefsForm
 
 
 class IContentLeadImageCollectionPortlet(collection.ICollectionPortlet):
@@ -31,6 +28,12 @@ class IContentLeadImageCollectionPortlet(collection.ICollectionPortlet):
         default=False,
         required=False)
 
+    scale = schema.Choice(
+        title=_(u"Image scale"),
+        description=_(u"The size of the images in the portlet."),
+        default='thumb',
+        vocabulary = u"collective.contentleadimage.scales_vocabulary")
+
 
 class Assignment(collection.Assignment):
     """Portlet assignment.
@@ -42,13 +45,15 @@ class Assignment(collection.Assignment):
     implements(IContentLeadImageCollectionPortlet)
 
     start_dates = False
+    scale = 'thumb'
 
     def __init__(self, header=u"", target_collection=None, limit=None,
                  random=False, show_more=True, show_dates=False,
-                 start_dates=False):
+                 start_dates=False, scale='thumb'):
         super(Assignment, self).__init__(header, target_collection, limit,
                                          random, show_more, show_dates)
         self.start_dates = start_dates
+        self.scale = scale
 
 
 class Renderer(collection.Renderer):
@@ -75,14 +80,8 @@ class Renderer(collection.Renderer):
             title = ''
         if field is not None:
             if field.get_size(context) != 0:
-                scale = self.scale()
-                return field.tag(context, scale=scale, css_class=css_class, title=title)
+                return field.tag(context, scale=self.data.scale, css_class=css_class, title=title)
         return ''
-
-    def scale(self):
-        portal = getUtility(IPloneSiteRoot)
-        prefs =  ILeadImagePrefsForm(portal)
-        return prefs.desc_scale_name
 
     def object_date(self, brain):
         """ Return the appropiate date to show """
