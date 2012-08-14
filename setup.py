@@ -1,12 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = 'trunk'
-
-if version != 'trunk':
-    download_url = 'https://svn.plone.org/svn/collective/collective.portlet.contentleadimage/tags/%s' % version,
-else:
-    download_url = 'https://svn.plone.org/svn/collective/collective.portlet.contentleadimage/trunk/'
+version = '0.5'
 
 setup(name='collective.portlet.contentleadimage',
       version=version,
@@ -24,8 +19,7 @@ setup(name='collective.portlet.contentleadimage',
       keywords='',
       author='Ales Zabala Alava (Shagi)',
       author_email='shagi@gisa-elkartea.org',
-      url='http://lagunak.gisa-elkartea.org/projects/plone-leadimage/',
-      download_url=download_url,
+      url='http://github.com/collective/collective.portlet.contentleadimage'
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective', 'collective.portlet'],
