@@ -49,9 +49,9 @@ class Assignment(collection.Assignment):
 
     def __init__(self, header=u"", target_collection=None, limit=None,
                  random=False, show_more=True, show_dates=False,
-                 start_dates=False, scale='thumb'):
+                 start_dates=False, scale='thumb', **kwargs):
         super(Assignment, self).__init__(header, target_collection, limit,
-                                         random, show_more, show_dates)
+                                         random, show_more, show_dates, **kwargs)
         self.start_dates = start_dates
         self.scale = scale
 
