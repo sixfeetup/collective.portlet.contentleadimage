@@ -5,7 +5,7 @@
                 toLocalizedTime nocall:plone_view/toLocalizedTime;
                 viewActions here/portal_properties/site_properties/typesUseViewActionInListings|python:();
                 getIcon nocall:plone_view/getIcon;
-                portlet_id context/data/id"
+                portlet_id context/data/id|string:id1"
     tal:attributes="class string:portlet portletContentLeadImageCollectionPortlet ${portlet_id}">
 
     <dt class="portletHeader">

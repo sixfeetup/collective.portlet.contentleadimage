@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.5.2.dev0 (unreleased )
+-------------------------
+
+- Make compatibile with Plone 4.3.3 [sureshvv]
+
 0.5.1 - 2012-08-20
 -------------------
 
