@@ -4,7 +4,6 @@
                 plone_view context/@@plone;
                 toLocalizedTime nocall:plone_view/toLocalizedTime;
                 viewActions here/portal_properties/site_properties/typesUseViewActionInListings|python:();
-                getIcon nocall:plone_view/getIcon;
                 portlet_id context/data/id|string:id1"
     tal:attributes="class string:portlet portletContentLeadImageCollectionPortlet ${portlet_id}">
 
@@ -21,10 +20,9 @@
         tal:define="oddrow repeat/obj/odd;
                     useView python:obj.portal_type in viewActions;
                     itemUrl python:useView and obj.getURL() + '/view' or obj.getURL();
-                    item_icon python:getIcon(obj);
-                    item_has_leadimage obj/hasContentLeadImage;
                     item_object obj/getObject;
                     item_has_image exists:item_object/image;
+                    scales item_object/@@images;
                     "
 
         tal:attributes="class python:oddrow and 'portletItem even' or 'portletItem odd'">
@@ -32,14 +30,10 @@
            class="tile"
            tal:attributes="href itemUrl;
                            title obj/Description">
-            <img src="" alt=""
-                 tal:condition="exists:item_has_leadimage"
-                 tal:replace="structure python:view.tag(item_object, css_class='portletItemDetails')" />
-            <img src="" alt=""
-                 tal:condition="python: not item_has_leadimage and item_has_image"
-                 tal:replace="structure python:item_object.tag(scale=view.data.scale, css_class='portletItemDetails')" />
-            <img tal:replace="structure item_icon/html_tag" />
-            <span tal:replace="obj/pretty_title_or_id">
+            <img src="${item_object/absolute_url}/@@images/image/${view/data/scale}" alt=""
+                 tal:condition="python: item_has_image" />
+            
+            <span tal:replace="obj/Title">
              Title
             </span>
             <span class="portletItemDetails"

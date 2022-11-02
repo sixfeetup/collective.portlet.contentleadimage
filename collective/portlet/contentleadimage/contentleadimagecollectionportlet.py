@@ -1,18 +1,12 @@
-from zope.interface import implements
-from plone.portlets.interfaces import IPortletDataProvider
-from plone.app.portlets.portlets import base
-from zope import schema
-from zope.formlib import form
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Acquisition import aq_inner
+from plone import api
+from plone.portlet.collection import collection
+from plone.app.portlets.portlets import base
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope import schema
+from zope.interface import implementer
 
 from collective.portlet.contentleadimage import ContentLeadImageCollectionPortletMessageFactory as _
-
-from plone.portlet.collection import collection
-from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
-
-from collective.contentleadimage.config import IMAGE_FIELD_NAME
-from collective.contentleadimage.config import IMAGE_CAPTION_FIELD_NAME
 
 
 class IContentLeadImageCollectionPortlet(collection.ICollectionPortlet):
@@ -32,17 +26,16 @@ class IContentLeadImageCollectionPortlet(collection.ICollectionPortlet):
         title=_(u"Image scale"),
         description=_(u"The size of the images in the portlet."),
         default='thumb',
-        vocabulary = u"collective.contentleadimage.scales_vocabulary")
+        vocabulary = u"plone.app.vocabularies.ImagesScales")
 
 
+@implementer(IContentLeadImageCollectionPortlet)
 class Assignment(collection.Assignment):
     """Portlet assignment.
 
     This is what is actually managed through the portlets UI and associated
     with columns.
     """
-
-    implements(IContentLeadImageCollectionPortlet)
 
     start_dates = False
     scale = 'thumb'
@@ -64,7 +57,6 @@ class Renderer(collection.Renderer):
     of this class. Other methods can be added and referenced in the template.
     """
 
-    #_template = ViewPageTemplateFile('contentleadimagecollectionportlet.pt')
     render = ViewPageTemplateFile('contentleadimagecollectionportlet.pt')
 
     def __init__(self, *args):
@@ -72,8 +64,8 @@ class Renderer(collection.Renderer):
 
     def tag(self, obj, css_class='tileImage'):
         context = aq_inner(obj)
-        field = context.getField(IMAGE_FIELD_NAME)
-        titlef = context.getField(IMAGE_CAPTION_FIELD_NAME)
+        field = context.getField('image')
+        titlef = context.getField('image_caption')
         if titlef is not None:
             title = titlef.get(context)
         else:
@@ -101,13 +93,15 @@ class AddForm(base.AddForm):
     zope.formlib which fields to display. The create() method actually
     constructs the assignment that is being added.
     """
-    form_fields = form.Fields(IContentLeadImageCollectionPortlet)
-    form_fields['target_collection'].custom_widget = UberSelectionWidget
+    schema = IContentLeadImageCollectionPortlet
 
     label = _(u"Add ContentLeadImage Collection Portlet")
     description = _(u"This portlet display a listing of items's contentleadimages from a Collection.")
 
     def create(self, data):
+        target = api.content.get(UID=data['uid'])
+        data['target_collection'] = '/'.join(target.getPhysicalPath())
+        del data['uid']
         return Assignment(**data)
 
 class EditForm(base.EditForm):
@@ -116,8 +110,7 @@ class EditForm(base.EditForm):
     This is registered with configure.zcml. The form_fields variable tells
     zope.formlib which fields to display.
     """
-    form_fields = form.Fields(IContentLeadImageCollectionPortlet)
-    form_fields['target_collection'].custom_widget = UberSelectionWidget
+    schema = IContentLeadImageCollectionPortlet
 
     label = _(u"Edit ContentLeadImage Collection Portlet")
     description = _(u"This portlet display a listing of items's contentleadimages from a Collection.")

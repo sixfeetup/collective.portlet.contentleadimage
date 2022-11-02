@@ -15,7 +15,6 @@ from collective.portlet.contentleadimage import contentleadimagecollectionportle
 from collective.portlet.contentleadimage.tests.base import TestCase
 
 from collective.contentleadimage.leadimageprefs import ILeadImagePrefsForm
-from collective.contentleadimage.config import IMAGE_FIELD_NAME
 from Products.CMFCore.utils import getToolByName
 
 
@@ -97,7 +96,7 @@ class TestRenderer(TestCase):
         #Add contentleadimage to folder
         test_image = os.path.join(os.path.dirname(__file__), 'test_41x41.jpg')
         raw_image = open(test_image, 'rb').read()
-        field = folder1.getField(IMAGE_FIELD_NAME)
+        field = folder1.getField('image')
         field.set(folder1, raw_image)
         folder1.reindexObject()
 
