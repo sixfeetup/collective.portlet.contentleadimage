@@ -3,7 +3,7 @@
     tal:define="collection_url view/collection_url;
                 plone_view context/@@plone;
                 toLocalizedTime nocall:plone_view/toLocalizedTime;
-                viewActions here/portal_properties/site_properties/typesUseViewActionInListings|python:();
+                viewActions python:context.portal_registry.get('plone.types_use_view_action_in_listings', []);
                 portlet_id context/data/id|string:id1"
     tal:attributes="class string:portlet portletContentLeadImageCollectionPortlet ${portlet_id}">
 
