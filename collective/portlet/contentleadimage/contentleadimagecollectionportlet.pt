@@ -33,7 +33,7 @@
             <img src="${item_object/absolute_url}/@@images/image/${view/data/scale}" alt=""
                  tal:condition="python: item_has_image" />
             
-            <span tal:replace="obj/Title">
+            <span tal:content="obj/Title">
              Title
             </span>
             <span class="portletItemDetails"
