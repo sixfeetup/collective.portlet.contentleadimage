@@ -80,9 +80,9 @@ class Renderer(collection.Renderer):
 
         date = None
         if self.data.start_dates:
-            date =  brain.start or brain.Date
+            date =  brain.start or brain.Date()
         else:
-            date = brain.Date
+            date = brain.Date()
         return date
 
 

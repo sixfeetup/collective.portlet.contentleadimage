@@ -33,14 +33,16 @@
             <img src="${item_object/absolute_url}/@@images/image/${view/data/scale}" alt=""
                  tal:condition="python: item_has_image" />
             
-            <span tal:content="obj/Title">
+            <span class="portletItemDetails itemTitle" tal:content="obj/Title">
              Title
             </span>
-            <span class="portletItemDetails"
-                  tal:condition="view/data/show_dates"
-                  tal:content="python:toLocalizedTime(view.object_date(obj))">
-                Date
-            </span>
+            <tal:date condition="view/data/show_dates">
+                <br />
+                <span class="portletItemDetails"
+                    tal:content="python:toLocalizedTime(view.object_date(obj))">
+                    Date
+                </span>
+            </tal:date>
         </a>
     </dd>
     </tal:events>
